@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>FireGrapher Stocks Example</title>
+
+    <!-- Firebase -->
+    <script src="../../bower_components/firebase/firebase.js"></script>
+
+    <!-- FireGrapher -->
+    <script src="../../dist/js/firegrapher.js"></script>
+
+    <!-- d3.js -->
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+
+    <!-- Custom JS -->
+    <script src="stocks.js" defer></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" type="text/css" href="stocks.css">
+
+    <script type="text/javascript">
+      WebFontConfig = {
+        google: { families: [ 'Roboto+Slab::latin' ] }
+      };
+      (function() {
+        var wf = document.createElement('script');
+        wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+          '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+        wf.type = 'text/javascript';
+        wf.async = 'true';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(wf, s);
+      })();
+    </script>
+  </head>
+
+  <body>
+    <input id="resetFirebaseButton" type="button" value="Reset Firebase" />
+    <input id="addYahooStocksButton" type="button" value="Add YHOO" />
+    <input id="removeGoogleStocksButton" type="button" value="Remove GOOG" />
+    <input id="removeStocksButton" type="button" value="Remove last 10 stocks from from graph 2" />
+    <input id="startJacobcoinButton" type="button" value="Start Jacobcoin" />
+    <input id="stopJacobcoinButton" type="button" value="Stop Jacobcoin" />
+
+    <div id="graphs">
+      <div id="stockChart1"></div>
+      <div id="stockChart2"></div>
+      <div id="userTable"></div>
+      <div id="jacobcoinChart"></div>
+      <div id="digitalCurrencyChart"></div>
+      <div id="stockChart6"></div>
+    </div>
+  </body>
+</html>

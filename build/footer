@@ -1,0 +1,7 @@
+  return FireGrapher;
+})();
+
+// Export FireGrapher if this is being run in node
+if (typeof module !== "undefined" && typeof process !== "undefined") {
+  module.exports = FireGrapher;
+}

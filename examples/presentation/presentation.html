@@ -1,0 +1,462 @@
+<!DOVTYPE html>
+<html lang="en">
+  <head>
+    <title>FireGrapher Presentation</title>
+
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/default.css" id="theme">
+
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="css/zenburn.css">
+
+     <style type="text/css">
+      html, body, #map {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+
+      .stations, .stations svg {
+        position: absolute;
+      }
+
+      .stations svg {
+        width: 60px;
+        height: 20px;
+        padding-right: 100px;
+        font: 10px sans-serif;
+      }
+
+      .stations circle {
+        fill: brown;
+        stroke: black;
+        stroke-width: 1.5px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="reveal">
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+        <section>
+          <h1>FireGrapher</h1>
+          <h3>Graphing Library for Firebase</h3>
+          <p>
+            <small>Created by Tony Meng and Jacob Wenger</small>
+          </p>
+        </section>
+
+        <section>
+          <h2>Motivation</h2>
+          <img src="http://i0.kym-cdn.com/photos/images/newsfeed/000/066/286/pac_man_pie_chart.jpg" />
+        </section>
+
+        <!-- Line Graph -->
+        <section>
+          <section>
+            <h3>Line Graph</h3>
+            <p>Firebase data</p>
+            <pre>
+              "stocks": {
+                "-JBADA2adhAADS": {
+                  "symbol": "MSFT",
+                  "price": 45,
+                  "time": 0
+                },
+                "-JBacA2adhAADS": {
+                  "symbol": "AAPL",
+                  "price": 70,
+                  "time": 0
+                }
+                "-HMADA2adhAADS": {
+                  "symbol": "MSFT",
+                  "price": 44,
+                  "time": 1
+                }
+                ...
+              }
+            </pre>
+          </section>
+
+          <section>
+            <h3>Line Graph</h3>
+            <p>FirebaseGrapher code</p>
+            <pre>
+              var fireGrapher = new FireGrapher();
+              fireGrapher.graph("#stocks", firebaseRef.child("stocks"), {
+                type : "line",
+                path: "*",
+                xCoord: {
+                  "label" : "Time",
+                  "value" : "time"
+                },
+                yCoord: {
+                  "label" : "Price",
+                  "value" : "price"
+                },
+                series: "symbol"
+              });
+            </pre>
+          </section>
+
+          <section>
+            <h3>Line Graph</h3>
+            <p>Output</p>
+            <input id="addYahooStocksButton" type="button" value="Add YHOO" />
+            <input id="removeGoogleStocksButton" type="button" value="Remove GOOG" />
+            <div id="stockChart1"></div>
+          </section>
+        </section>
+
+        <!-- Streaming -->
+        <section>
+          <section>
+            <h3>Streaming</h3>
+            <p>Firebase data</p>
+            <pre>
+              "currencies": {
+                "jacobcoin": {
+                  "price": 45,
+                },
+                "tonycoin": {
+                  "price": 50,
+                }
+              }
+            </pre>
+          </section>
+
+          <section>
+            <h3>Streaming</h3>
+            <p>FirebaseGrapher code</p>
+            <pre>
+              var fireGrapher = new FireGrapher();
+              fireGrapher.graph("#coin", firebaseRef.child("currencies"), {
+                type : "line",
+                  path: "$currency",
+                  xCoord: {
+                    label: "Time",
+                    stream: true,
+                    limit: 30
+                  },
+                  yCoord: {
+                    label: "Price",
+                    value: "price"
+                  },
+                  series: "$currency"
+                }
+              });
+            </pre>
+          </section>
+
+          <section>
+            <h3>Streaming</h3>
+            <p>Output</p>
+            <input id="startJacobcoinButton" type="button" value="Start" />
+            <div id="jacobcoinChart"></div>
+          </section>
+        </section>
+
+        <!-- Scatter Plot -->
+        <section>
+          <section>
+            <h3>Scatter Plot</h3>
+            <p>Firebase data</p>
+            <pre>
+              "stocks": {
+                "MSFT": {
+                  "-JBADA2adhAADS": {
+                    "price": 45,
+                    "time": 0
+                  },
+                  ...
+                },
+                "AAPL": {
+                  "-JBADA2adhAADS": {
+                    "price": 70,
+                    "time": 0
+                  },
+                  ...
+                },
+                "GOOG": {
+                  "-JBADA2adhAADS": {
+                    "price": 58,
+                    "time": 0
+                  },
+                  ...
+                }
+              }
+            </pre>
+          </section>
+
+          <section>
+            <h3>Scatter Plot</h3>
+            <p>FirebaseGrapher code</p>
+            <pre>
+              var fireGrapher = new FireGrapher();
+              fireGrapher.graph("#stocks", firebaseRef.child("stocks"), {
+                type : "scatter",
+                path: "$symbol/*",
+                xCoord: {
+                  "label" : "Time",
+                  "value" : "time"
+                },
+                yCoord: {
+                  "label" : "Price",
+                  "value" : "price"
+                },
+                series: "$symbol",
+                styles: {...}
+              });
+            </pre>
+          </section>
+
+          <section>
+            <h3>Scatter Plot</h3>
+            <p>FirebaseGrapher styles</p>
+            <pre>
+              styles: {
+                "outerStrokeWidth": 5,
+                "innerStrokeWidth": 2,
+                "fillColor": "#35FC7A",
+                "fillOpacity": 0.1,
+                "outerStrokeColor": "#AB8B6B",
+                "innerStrokeColor": "#F4F2B7",
+                "axes": {
+                  "x": {
+                    "ticks": {
+                      "fillColor": "#F54C99",
+                      "fontSize": "8px"
+                    },
+                    "label": {
+                      "fillColor": "#4C99F5",
+                      "fontSize": "30px"
+                    }
+                  },
+                  "y": { ... }
+                },
+                "markers": { ... }
+              }
+            </pre>
+          </section>
+
+          <section>
+            <h3>Scatter Plot</h3>
+            <p>Output</p>
+            <input id="removeStocksButton" type="button" value="Remove last 10 stocks" />
+            <div id="stockChart2"></div>
+          </section>
+        </section>
+
+        <!-- Table -->
+        <section>
+          <section>
+            <h3>Table</h3>
+            <p>Firebase data</p>
+            <pre>
+              "users": {
+                "0" : {
+                  "firstName": "Jacob",
+                  "lastName": "Wenger",
+                  "email": "jacob@firebase.com",
+                  "gender": "Male",
+                  "isPaid": false
+                },
+                "1" : {
+                  "firstName": "Tony",
+                  "lastName": "Meng",
+                  "email": "tony@firebase.com",
+                  "gender": "Male",
+                  "isPaid": true
+                },
+                ...
+              }
+            </pre>
+          </section>
+
+          <section>
+            <h3>Table</h3>
+            <p>FirebaseGrapher code</p>
+            <pre>
+              var fireGrapher = new FireGrapher();
+              fireGrapher.graph("#userTable", firebaseRef.child("users"), {
+                type : "table",
+                path: "$userId",
+                columns: [
+                  { label: "First Name", value: "firstName", width : "50" },
+                  { label: "Last Name", value: "lastName", width : "50" },
+                  { label: "Email", value: "email", width : "80"  },
+                  { label: "Gender", value: "gender", width : "30" },
+                  { label: "Is Paid?", value: "isPaid", width : "20" }
+                ],
+                styles: {...}
+              });
+            </pre>
+          </section>
+
+          <section>
+            <h3>Table</h3>
+            <p>Output</p>
+            <div id="userTable"></div>
+          </section>
+        </section>
+
+        <!-- Bar Chart -->
+        <section>
+          <section>
+            <h3>Bar Chart</h3>
+            <p>Firebase data</p>
+            <pre>
+              "stocks": {
+                "MSFT": {
+                  "-JBADA2adhAADS": {
+                    "price": 45,
+                    "time": 0
+                  },
+                  ...
+                },
+                "AAPL": {
+                  "-JBADA2adhAADS": {
+                    "price": 70,
+                    "time": 0
+                  },
+                  ...
+                },
+                "GOOG": {
+                  "-JBADA2adhAADS": {
+                    "price": 58,
+                    "time": 0
+                  },
+                  ...
+                }
+              }
+            </pre>
+          </section>
+
+          <section>
+            <h3>Bar Chart</h3>
+            <p>FirebaseGrapher code</p>
+            <pre>
+              var fireGrapher = new FireGrapher();
+              fireGrapher.graph("#barChart", firebaseRef.child("stocks"), {
+                type : "bar",
+                path: "$symbol/*",
+                xCoord: {
+                  "label" : "Symbols"
+                },
+                yCoord: {
+                  "label" : "Price"
+                },
+                value : "price",
+                series: "$symbol"
+              });
+            </pre>
+          </section>
+
+          <section>
+            <h3>Bar Chart</h3>
+            <p>Output</p>
+            <div id="stockChart6"></div>
+          </section>
+        </section>
+
+        <!-- Map -->
+        <section>
+          <section>
+            <h3>Map</h3>
+            <p>Firebase data</p>
+            <pre>
+              "map": {
+                "-JBADA2adhAADS": {
+                  key: "Location 1",
+                  latitude: 45,
+                  longitude: -122,
+                  radius: 5
+                },
+                ...
+              }
+            </pre>
+          </section>
+
+          <section>
+            <h3>Map</h3>
+            <p>FirebaseGrapher code</p>
+            <pre>
+              var fireGrapher = new FireGrapher();
+              fireGrapher.graph("#map", firebaseRef.child("map"), {
+                type : "map",
+                path : "*",
+                marker : {
+                  label : "key",
+                  latitude : "latitude",
+                  longitude : "longitude",
+                  magnitude : "radius"
+                }
+              });
+            </pre>
+          </section>
+
+          <section>
+            <h3>Map</h3>
+            <p>Output</p>
+            <div id="map"></div>
+          </section>
+        </section>
+
+        <!-- The end -->
+        <section>
+          <h1>WOOT!</h1>
+        </section>
+      </div>
+    </div>
+
+    <script src="js/head.min.js"></script>
+    <script src="js/reveal.js"></script>
+
+
+    <!-- Firebase -->
+    <script src="../../bower_components/firebase/firebase.js"></script>
+
+    <!-- FireGrapher -->
+    <script src="../../build/js/FireGrapher.js"></script>
+
+    <!-- d3.js -->
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/d3/2.10.0/d3.v2.min.js"></script>
+
+    <!-- Google Maps -->
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
+
+    <script src="js/graphs.js"></script>
+
+    <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+
+        theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'default', // none/fade/slide/convex/concave/zoom
+
+        // Parallax scrolling
+        // parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+        // parallaxBackgroundSize: '2100px 900px',
+
+        // Optional libraries used to extend on reveal.js
+        /*dependencies: [
+          { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+        ]*/
+      });
+
+    </script>
+    </body>
+  </html>

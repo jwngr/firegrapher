@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>Generate Markers</title>
+    <!-- Firebase -->
+    <script src="../../bower_components/firebase/firebase.js"></script>
+    <script type="text/javascript">
+      var firebaseRef = new Firebase("https://FireGrapherStocks.firebaseIO-demo.com/");
+      var counter = 0;
+
+      function generateMarkers() {
+        function addMapLocation(path, label, magnitude, latitude, longitude) {
+          firebaseRef.child(path).push({
+            "key": label,
+            "radius": magnitude,
+            "latitude": latitude,
+            "longitude": longitude
+          });
+        };
+        function getRandomValue(min, max) {
+          return (Math.random() * (max-min)) + min;
+        };
+
+        var max = counter + 30;
+        for (; counter < max; ++counter) {
+          addMapLocation("map", "RANDOM"+counter, 5, getRandomValue(37, 38), getRandomValue(-123, -121));
+        }
+        console.log("done");
+      }
+
+      function removeAllMarkers() {
+        firebaseRef.child("map").remove();
+      }
+
+    </script>
+  </head>
+
+  <body>
+    <input type="button" value="Generate Markers" onclick="generateMarkers()"/>
+    <input type="button" value="Remove All Markers" onclick="removeAllMarkers()"/>
+  </body>
+</html>

@@ -1,0 +1,63 @@
+{
+  "name": "firegrapher",
+  "description": "Graphing library for Firebase",
+  "version": "1.0.0",
+  "author": "Firebase <support@firebase.com> (https://www.firebase.com/)",
+  "homepage": "https://github.com/firebase/firegrapher/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/firebase/firegrapher.git"
+  },
+  "bugs": {
+    "url": "https://github.com/firebase/firegrapher/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://firebase.mit-license.org/"
+    }
+  ],
+  "keywords": [
+    "d3",
+    "graph",
+    "chart",
+    "realtime",
+    "firebase",
+    "visualization"
+  ],
+  "main": "./dist/firegrapher.js",
+  "files": [
+    "dist/**",
+    "LICENSE",
+    "README.md",
+    "CHANGELOG.md",
+    "package.json"
+  ],
+  "dependencies": {
+    "d3": "^3.4.9",
+    "firebase": "1.0.x"
+  },
+  "devDependencies": {
+    "karma": "^0.12.9",
+    "karma-jasmine": "~0.2.0",
+    "karma-coverage": "^0.2.4",
+    "karma-phantomjs-launcher": "~0.1.4",
+    "gulp": "^3.8.5",
+    "tiny-lr": "0.0.7",
+    "express": "^4.2.0",
+    "gulp-sass": "^0.7.1",
+    "gulp-karma": "0.0.4",
+    "streamqueue": "0.0.5",
+    "gulp-concat": "^2.2.0",
+    "gulp-uglify": "^0.2.1",
+    "gulp-jshint": "^1.5.1",
+    "gulp-rename": "^1.2.0",
+    "jshint-stylish": "^0.2.0",
+    "gulp-livereload": "^1.5.0",
+    "gulp-ext-replace": "0.0.5",
+    "connect-livereload": "^0.4.0"
+  },
+  "scripts": {
+    "test": "gulp test"
+  }
+}

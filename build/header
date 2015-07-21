@@ -1,0 +1,14 @@
+// FireGrapher is a JavaScript library that allows you to chart and graph
+// your Firebase data, updated in realtime.
+//
+//   FireGrapher 1.0.0
+//   https://github.com/firebase/firegrapher/
+//   License: MIT
+
+// Include d3 if this is being run in node
+if (typeof module !== "undefined" && typeof process !== "undefined") {
+    var d3 = require("d3");
+}
+
+var FireGrapher = (function() {
+  "use strict";

@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>FireGrapher Test Suite</title>
+
+    <!-- Jasmine -->
+    <script src="../bower_components/jasmine/lib/jasmine-core/jasmine.js"></script>
+    <script src="../bower_components/jasmine/lib/jasmine-core/jasmine-html.js"></script>
+    <script src="../bower_components/jasmine/lib/jasmine-core/boot.js"></script>
+    <link rel="stylesheet" href="../bower_components/jasmine/lib/jasmine-core/jasmine.css">
+
+    <!-- D3 -->
+    <script src="../bower_components/d3/d3.min.js"></script>
+
+    <!-- Firebase -->
+    <script src="../bower_components/firebase/firebase-debug.js"></script>
+
+    <!-- FireGrapher -->
+    <script src="../src/firegrapher.js"></script>
+    <script src="../src/firegrapherUtils.js"></script>
+    <script src="../src/firegrapherParser.js"></script>
+    <script src="../src/d3/d3Graph.js"></script>
+    <script src="../src/d3/d3Map.js"></script>
+    <script src="../src/d3/d3Table.js"></script>
+
+
+    <!-- Jasmine specs -->
+    <script src="specs/common.spec.js"></script>
+    <script src="specs/firegrapher.spec.js"></script>
+    <script src="specs/firegrapherD3.spec.js"></script>
+    <script src="specs/firegrapherUtils.spec.js"></script>
+    <script src="specs/firegrapherParser.spec.js"></script>
+  </head>
+
+  <body>
+    <div id="graph1" class="graph"></div>
+    <div id="graph2" class="graph"></div>
+    <div id="graph3" class="graph"></div>
+  </body>
+</html>
